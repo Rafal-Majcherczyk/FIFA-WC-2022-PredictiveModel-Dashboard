@@ -1,5 +1,14 @@
 # FIFA World Cup 2022 Predictive Model and input data for FIFA World Cup 2022 Fan Dashboard
 
+## Table of Contents
+
+* [Overview](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#overview)
+* [Data source & Packages Used](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#data-source--packages-used)
+* [Description](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#description)
+* [Setup & Usage](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#setup--usage)
+* [Methodology](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#methodology)
+* [Summary (TLDR)](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#summary-tldr)
+
 ## Overview
 
 The central element of this repository is a predictive model prepared in Python, which uses the Poisson distribution to predict the results of each match during the FIFA World Cup 2022 and determine the medalists. Additionally, a separate model has been created to provide detailed analysis of individual matches. The repository also includes SQL code, which processes the source data and returns tables that are used in conjunction with the predicted results for an associated project - the [FIFA World Cup 2022 Fan Dashboard](https://public.tableau.com/app/profile/rafa.7863/viz/FIFAWorldCup2022FanDashboard/WC_2022_dashboard), which has been prepared in Tableau.
@@ -11,12 +20,15 @@ The central element of this repository is a predictive model prepared in Python,
 | Match Predictive Model          | world_cup_2022_predictive_model.ipynb |
 | Data Preparation in SQL         | world_cup_2022_data_preparation.sql   |
 
-## Data source
+## Data source & Packages Used
 
 Data for this project was obtained from Maven Analytics who published it as a part of their challenge ("source_data.zip") 
 
-Data source: https://www.mavenanalytics.io/data-playground (dataset titled "World Cup")
+**Data source**: https://www.mavenanalytics.io/data-playground (dataset titled "World Cup")
 <!-- Alternative link: https://mavenanalytics.io/blog/maven-world-cup-challenge // I don't think that I will need it as it does not provide data but rather contest description-->
+
+**Language**: Python (v3.9)
+**Packages**: numpy, pandas, scipy, matplotlib, and seaborn
 
 ## Description
 
@@ -55,7 +67,9 @@ Data source: https://www.mavenanalytics.io/data-playground (dataset titled "Worl
 
     Returns the most likely outcome of every single match during World Cup 2022 Finals based on historical data (medalists are determined).
 
-    >**NOTE: You can choose how much data will be utilized for analysis (start_date_wc refers to World Cup Finals and start_date_inter to all other matches). Default settings are the following: 1) start date for World Cup Finals is set to 1998-01-01 what means that data from six consecutive tournaments that were organized before World Cup Finals from 2022 will be taken into account 2) start date for other international matches is set to 2016-11-20, so all matches that took place during six-year period preceding World Cup Finals in Qatar will be considered. This particular setup was used in my own simulation (results along with three more charts are to be found in my dashboard for football fans that I prepared in Tableau Public). Appearances and results obtained during World Cup Finals indicate how well national teams perform during the most prestigious tournament and what their true capabilities are given that they have to face the best teams from all over the world (among other information). On the other hand, their performance in matches outside of World Cup Finals from the past few years is supposed to provide information about the current form of teams. However, you are encouraged to modify these dates to your liking and see how the change affects results of the simulation.**
+    >**NOTE 1: You can choose how much data will be utilized for analysis (start_date_wc refers to World Cup Finals and start_date_inter to all other matches). Default settings are the following: 1) start date for World Cup Finals is set to 1998-01-01 what means that data from six consecutive tournaments that were organized before World Cup Finals from 2022 will be taken into account 2) start date for other international matches is set to 2016-11-20, so all matches that took place during six-year period preceding World Cup Finals in Qatar will be considered. This particular setup was used in my own simulation (results along with three more charts are to be found in my dashboard for football fans that I prepared in Tableau Public).** 
+    
+    >**NOTE 2: Appearances and results obtained during World Cup Finals indicate how well national teams perform during the most prestigious tournament and what their true capabilities are given that they have to face the best teams from all over the world (among other information). On the other hand, their performance in matches outside of World Cup Finals from the past few years is supposed to provide information about the current form of teams. However, you are encouraged to modify these dates to your liking and see how the change affects results of the simulation.**
 
 ## Setup & Usage
 
@@ -93,3 +107,5 @@ All data necessary for performing prediction was provided in "predictive_model_i
     1. If two teams or more in a group collected exactly the same number of points then the model would consider a direct match between each pair of these teams and would compare winning chances to establish which team should be placed higher in the group standings. Due to mathematical transitivity (Team1_win_prob > Team2_win_prob and Team2_win_prob > Team3_win_prob then Team1_win_prob > Team3_win_prob) this approach provides final and unambiguous result. In the future model might be extended to keep track of the most likely goal counts or expected goals for each match and use these metrics to determine the group standings but for now the solution outlined above is in use due to its simplicity, low likelihood of situation where two or more teams have the same number of points (mentioned transitivity and the fact that draws are rarely the most probable outcome of matches), and lastly because it provides good estimate of the standings without the necessity of implementing further tiebreakers. For example, if goal differences were used as a tiebreaker then we might end up in a situation where two or even more teams have exactly the same results which would require implementation of additional solutions (in fact, FIFA prepared a list composed of seven tiebreakers starting from goal differences and finishing with drawing of lots to resolve potential ties!).
     2. In case of a match between two teams in a group stage with no explicit favourite (odds of winning for neither of the teams are higher than odds of winning for their opponent as well as odds of a draw) model will return draw as an outcome.
     3. If the model compares the winning chances of two teams in a scenario where draws are not taken into account (e.g. playoffs) and these odds turn out to be equal (an extremely rare situation), then the FIFA ranking will be used as the final decider. For example, if England (ranked 5th in the FIFA ranking) were to play France (ranked 4th) in the quarter-finals and the winning chances of both teams were exactly the same, then France would advance further.
+
+## Summary (TLDR)
