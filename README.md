@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-* [Overview](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#overview)
-* [Data Sources and Technology Used](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#data-sources-and-technology-used)
-* [Data Preparation](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#data-preparation)
-* [Description of Models](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#description-of-models)
-* [Setup and Usage](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#setup-and-usage)
-* [Demo](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#demo)
-* [Methodology](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#methodology)
-* [Summary (TLDR)](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#summary-tldr)
-* [Blog posts](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/edit/main/README.md#blog-posts)
+* [Overview](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#overview)
+* [Data Sources and Technology Used](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#data-sources-and-technology-used)
+* [Data Preparation](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#data-preparation)
+* [Description of Models](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#description-of-models)
+* [Setup and Usage](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#setup-and-usage)
+* [Demo](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#demo)
+* [Methodology](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#methodology)
+* [Summary (TLDR)](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#summary-tldr)
+* [Blog posts](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#blog-posts)
 
 <!-- add remaining items to the table of contents -->
 
