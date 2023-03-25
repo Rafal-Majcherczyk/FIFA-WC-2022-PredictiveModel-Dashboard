@@ -1,17 +1,22 @@
-# FIFA World Cup 2022 Predictive Model and input data for FIFA World Cup 2022 Fan Dashboard
+# FIFA World Cup 2022: Predictive Model and Dashboard Data
 
 ## Table of Contents
 
-* [Overview](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#overview)
-* [Data source & Packages Used](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#data-source--packages-used)
-* [Description](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#description)
-* [Setup & Usage](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#setup--usage)
-* [Methodology](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#methodology)
-* [Summary (TLDR)](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-DataPrep/edit/main/README.md#summary-tldr)
+* [Overview](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#overview)
+* [Data Sources and Technology Used](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#data-sources-and-technology-used)
+* [Data Preparation](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#data-preparation)
+* [Description of Models](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#description-of-models)
+* [Setup and Usage](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#setup-and-usage)
+* [Demo](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#demo)
+* [Methodology](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#methodology)
+* [Summary (TLDR)](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#summary-tldr)
+* [Blog posts](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#blog-posts)
+
+<!-- add remaining items to the table of contents -->
 
 ## Overview
 
-The central element of this repository is a predictive model prepared in Python, which uses the Poisson distribution to predict the results of each match during the FIFA World Cup 2022 and determine the medalists. Additionally, a separate model has been created to provide detailed analysis of individual matches. The repository also includes SQL code, which processes the source data and returns tables that are used in conjunction with the predicted results for an associated project - the [FIFA World Cup 2022 Fan Dashboard](https://public.tableau.com/app/profile/rafa.7863/viz/FIFAWorldCup2022FanDashboard/WC_2022_dashboard), which has been prepared in Tableau.
+This repository contains a predictive model built in Python, which uses the Poisson distribution to predict the results of each match during the FIFA World Cup 2022 and determine the medalists. Additionally, a separate model has been prepared to provide detailed analysis of individual matches. The repository also includes SQL code, which processes the source data and returns two tables and Python script responsible for scraping the actual results of the World Cup 2022 tournament. The SQL output is used in conjunction with the scraped results for an associated project - the [FIFA World Cup 2022 Fan Dashboard](https://public.tableau.com/app/profile/rafa.7863/viz/FIFAWorldCup2022FanDashboard/WC_2022_dashboard), which has been prepared in Tableau.
 
 
 | **Item**                        | **File**                              |
@@ -19,22 +24,25 @@ The central element of this repository is a predictive model prepared in Python,
 | World Cup 2022 Predictive Model | world_cup_2022_predictive_model.ipynb |
 | Match Predictive Model          | world_cup_2022_predictive_model.ipynb |
 | Data Preparation in SQL         | world_cup_2022_data_preparation.sql   |
+| Data Scraping and Transformation in Python | world_cup_2022_results.ipynb |
 
-## Data source & Packages Used
+## Data Sources and Technology Used
 
-Data for this project was obtained from Maven Analytics who published it as a part of their challenge ("source_data.zip") 
+Historical data for this project was obtained from Maven Analytics who published it as a part of their challenge ("source_data.zip" in the "input_data" folder), while the World Cup 2022 results were scraped from RSSSF's website. Credit to Maven Analytics, RSSSF, and Roberto Di Maggio for aggregating the information and permiting the free use of their data.
 
-**Data source**: https://www.mavenanalytics.io/data-playground (dataset titled "World Cup")
-<!-- Alternative link: https://mavenanalytics.io/blog/maven-world-cup-challenge // I don't think that I will need it as it does not provide data but rather contest description-->
+**Data source 1**: https://www.mavenanalytics.io/data-playground (dataset titled "World Cup")  
 
-**Language**: Python (v3.9)
-**Packages**: numpy, pandas, scipy, matplotlib, and seaborn
+**Data source 2**: https://www.rsssf.org/tables/2022f.html  
 
-## Description
+**Technologies used**: Microsoft SQL Server Management Studio 18, Python 3.9  
 
-1. **Data preparation in SQL**
+**Python Packages**: numpy, pandas, requests, BeautifulSoup, re, fnmatch, datetime, scipy, matplotlib, and seaborn
 
-   Source data was processed using Microsoft SQL Server Management Studio 18 in order to obtain two data frames (outputs are available in the repository):
+## Data Preparation
+
+1. **Data processing in SQL**
+
+   The data from the source 1 was processed in SQL in order to obtain two data frames:
    1. all_matches_w_winner_col_w_penalties_v1.xls (TABLE 1)
    2. wc_teams_stage_reached_w_stage_numerized.xls (TABLE 2)
 
@@ -43,7 +51,7 @@ Data for this project was obtained from Maven Analytics who published it as a pa
         >**CHARACTERISTICS:
         Winner column - additional column providing information about the winner of each match (column will be populated with either the name of the national team that won the match or information that the match ended up as a draw).**
     
-        Table 1 was used as the feature data for the model and charts 1 and 3 in the Tableau dashboard.
+        Table 1 was used as the input data for the models and charts 1 and 3 in the Tableau dashboard.
 
    * **TABLE 2**: Table containing information about the stage of tournament that each national team reached in World Cup Finals that they qualified for.
 
@@ -57,13 +65,28 @@ Data for this project was obtained from Maven Analytics who published it as a pa
 
         Table 2 was specifically designed for the purpose of chart 2 in the Tableau dashboard.
 
+1. **Web scraping and data transformation in Python**
+
+   Summary of actions taken:
+   * data scraped from the website
+   * records regarding each match and corresponding penalties combined into single rows
+   * transformation of records referring to the World Cup final to be consistent with the remainder of matches
+   * irrelevant data filtered out and rest of the data prepared for subsequent data wrangling
+   * transformation of dates and adoption of names for stages to be consistent with the convention used in the   rest of the project
+   * retrieval of the name of the winner for each match
+   * retrieval of information that will be used in the dashboard
+   
+   Data from the source 2 has been scraped and transformed using Python specifically for the purpose of chart 4 in the dashboard.
+
+## Description of Models
+
 1. **Match Predictive Model**
 
     In-depth analysis of a single match between selected national teams. Provides statistics, breakdown of potential results based on their probability along with visualization and winning chances for both teams.
 
     >**NOTE: besides teams you can choose how much data will be utilized for analysis (start_date_wc refers to World Cup Finals and start_date_inter to all other matches).**
 
-2. **World Cup 2022 Predictive Model**
+1. **World Cup 2022 Predictive Model**
 
     Returns the most likely outcome of every single match during World Cup 2022 Finals based on historical data (medalists are determined).
 
@@ -71,14 +94,28 @@ Data for this project was obtained from Maven Analytics who published it as a pa
     
     >**NOTE 2: Appearances and results obtained during World Cup Finals indicate how well national teams perform during the most prestigious tournament and what their true capabilities are given that they have to face the best teams from all over the world (among other information). On the other hand, their performance in matches outside of World Cup Finals from the past few years is supposed to provide information about the current form of teams. However, you are encouraged to modify these dates to your liking and see how the change affects results of the simulation.**
 
-## Setup & Usage
+## Setup and Usage
 
-All data necessary for performing prediction was provided in "predictive_model_input_data.rar" (input_data folder).
+All data necessary for performing prediction was provided in the "predictive_model.rar" (input_data folder).
 
 **Instructions:**
-   1. Download "world_cup_2022_predictive_model.ipynb" and "predictive_model_input_data.rar" and extract data to the location of your preference.
+   1. Download "world_cup_2022_predictive_model.ipynb" and "predictive_model.rar" and extract data to the location of your preference.
    1. Open "world_cup_2022_predictive_model.ipynb" with editor of your liking (code was originally written in Jupyter Notebook).
-   1. Update data frame titled "all_matches" within function that you would like to use (first position in section "DATA") with the current location of "all_matches_w_winner_col_w_penalties_v1.xls" file.
+   1. Update the "INPUT DATA" section with the current location of the input data
+            
+      | Data frame         | Filename                                     |
+      | --------           | --------------                               |
+      | all_matches        | all_matches_w_winner_col_w_penalties_v1.xls  |
+      | match_schedule     | 2022_world_cup_matches.csv                   |
+      | wc_groups          | 2022_world_cup_groups.csv                    |
+   
+      ```python
+         # INPUT DATA
+         all_matches = pd.read_excel(r'YOUR_LOCATION\all_matches_w_winner_col_w_penalties_v1.xls')
+         match_schedule = pd.read_csv(r'YOUR_LOCATION\2022_world_cup_matches.csv')
+         wc_groups = pd.read_csv(r'YOUR_LOCATION\2022_world_cup_groups.csv')
+      ```
+   
    1. Type a name of function that you would like to use
       * Match Predictive Model
       ```python
@@ -92,6 +129,10 @@ All data necessary for performing prediction was provided in "predictive_model_i
          >* Team1, Team2 - teams whose match outcome you would like to predict, 
          >* start_date_wc - start date for World Cup Finals, if no date selected then default setting will be used (1998-01-01)
          >* start_date_inter - start date for other international matches, if no date selected then default setting will be used (2016-11-20) 
+
+## Demo
+
+<!-- screens from models and one screen from dashboard -->
 
 ## Methodology
 
@@ -109,3 +150,9 @@ All data necessary for performing prediction was provided in "predictive_model_i
     3. If the model compares the winning chances of two teams in a scenario where draws are not taken into account (e.g. playoffs) and these odds turn out to be equal (an extremely rare situation), then the FIFA ranking will be used as the final decider. For example, if England (ranked 5th in the FIFA ranking) were to play France (ranked 4th) in the quarter-finals and the winning chances of both teams were exactly the same, then France would advance further.
 
 ## Summary (TLDR)
+
+## Blog posts
+
+The corresponding blog posts for this project can be found here:
+* [FIFA World Cup 2022 Fan Dashboard](https://rafal-majcherczyk.github.io/post/project-1/)
+* [FIFA World Cup 2022 Predictive Model](https://rafal-majcherczyk.github.io/post/project-2/)
