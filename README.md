@@ -7,7 +7,7 @@
 * [Data Preparation](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#data-preparation)
 * [Description of Models](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#description-of-models)
 * [Setup and Usage](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#setup-and-usage)
-* [Demo](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#demo)
+* [Demonstration](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#demonstration)
 * [Methodology](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#methodology)
 * [Summary (TLDR)](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#summary-tldr)
 * [Blog posts](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard#blog-posts)
@@ -130,9 +130,14 @@ All data necessary for performing prediction was provided in the "predictive_mod
          >* start_date_wc - start date for World Cup Finals, if no date selected then default setting will be used (1998-01-01)
          >* start_date_inter - start date for other international matches, if no date selected then default setting will be used (2016-11-20) 
 
-## Demo
+## Demonstration
 
-<!-- screens from models and one screen from dashboard -->
+Argentina vs Poland - probability distribution of scoring chances and potential results
+![Argentina vs Poland](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/goals_prediction_large.png)
+
+Fan Dashboard
+![Fan Dashboard](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/WC_2022_dashboard_France.png)
+
 
 ## Methodology
 
