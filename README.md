@@ -151,6 +151,15 @@ All data necessary for performing prediction was provided in the "predictive_mod
 
 ## Summary (TLDR)
 
+* This repository contains a Python predictive model that uses the Poisson distribution to predict the results of each match in the FIFA World Cup 2022 and determine the medalists, as well as a separate model for detailed analysis of individual matches.
+* SQL code is included to process the source data and return two tables, and a Python script is provided to scrape the actual results of the World Cup 2022 tournament, which are used in an associated project - the FIFA World Cup 2022 Fan Dashboard, prepared in Tableau.
+* Historical data for the project was obtained from Maven Analytics and RSSSF, and Microsoft SQL Server Management Studio 18 and Python 3.9 were used for data processing.
+* Python packages used include numpy, pandas, requests, BeautifulSoup, re, fnmatch, datetime, scipy, matplotlib, and seaborn.
+* The data processing in SQL resulted in two tables, one combining international and world cup matches with an additional winner column and one containing information about the stage of the tournament each national team reached in World Cup Finals, numerized for dashboard purposes.
+* The data scraping and transformation in Python involved combining match records and corresponding penalties into single rows, filtering out irrelevant data, transforming dates and adopting names for stages, and retrieving the name of the winner for each match.
+* The Match Predictive Model provides statistics, breakdowns of potential results based on probability, visualizations, and winning chances for both teams in a single match, while the World Cup 2022 Predictive Model returns the most likely outcome of every single match during the tournament.
+
+
 ## Blog posts
 
 The corresponding blog posts for this project can be found here:
