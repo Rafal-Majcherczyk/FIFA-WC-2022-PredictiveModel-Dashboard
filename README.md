@@ -116,7 +116,7 @@ All data necessary for performing prediction was provided in the "predictive_mod
          wc_groups = pd.read_csv(r'YOUR_LOCATION\2022_world_cup_groups.csv')
       ```
    
-   1. Type a name of function that you would like to use
+   1. Type the name of the function that you would like to use
       * Match Predictive Model
       ```python
         match_prediction(Team1, Team2, start_date_inter, start_date_wc)
@@ -132,23 +132,25 @@ All data necessary for performing prediction was provided in the "predictive_mod
 
 ## Demonstration
 
-Argentina vs Poland - probability distribution of scoring chances and potential results
-![Argentina vs Poland](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/goals_prediction_large.png)
+* Prediction of France's results during the World Cup 2022
+<img src = "https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/WC_2022_prediction_France.png" alt = "Prediction of France's results during the World Cup 2022" width="500" height="257">
 
-Fan Dashboard
-![Fan Dashboard](https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/WC_2022_dashboard_France.png)
+* Analysis of a group match between France and Denmark
+<img src="https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/France_Denmark_score_probability.png">
+<img src="https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/France_Denmark_expected_goals.png" width="150" height="68">
+<img src="https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/France_Denmark_winning_chances.png" width="150" height="79">
+
+* Fan Dashboard for France team
+<img src="https://github.com/Rafal-Majcherczyk/FIFA-WC-2022-PredictiveModel-Dashboard/blob/main/assets/WC_2022_dashboard_France.png" alt="Fan Dashboard for France team">
 
 
 ## Methodology
 
-1. **Data preparation in SQL**  
-   Extensive comments provided in the sql file to help readers to follow along the code with understanding of its purpose. 
-
-2. **Match Predictive Model**  
+* **Match Predictive Model**  
     Model compares `average numbers of goals scored/lost per match` for each team with `average results obtained by all of the teams in the relevant group` and uses that information to calculate `attack strength and defence strength values`. Then `attack strength` of one team is multiplied by the `defence strength` of their opponent as well as average number of goals scored during World Cup Finals in the selected data scope in order to derive the `number of expected goals` for that particular match. The reason why average number of goals scored during World Cup Finals is also used as a base for calculations of expected goals (and not some kind of a mixture of averages obtained from World Cup Finals and other international matches) is that the purpose of this model is to simulate matches that will take place/could take place specifically during World Cup Finals. Finally, `Poisson distribution` with the number of expected goals used as an expected value is utilized to calculate the probability of different results. For simplicity of calculations assumption is made that quantities of goals scored by each team are independent.  
     It is also important to note that statistics for World Cup matches and other international matches (friendly matches, UEFA Euro, World Cup qualification, and the rest of the tournaments) are calculated separately. Final attack/defense strength is obtained by taking the arithmetic average of both results. Moreover, indicators describing attack and defense capabilities of teams that have not participated in one or more of the World Cup Finals (from the selected scope of data) are negatively affected (logic: number of appearances in World Cup Finals is treated as a measure of how elite the team is so each failure to qualify will increase the severity of penalty).
 
-3. **World Cup 2022 Predictive Model**  
+* **World Cup 2022 Predictive Model**  
     The same methodology as in the case of 'Match Predictive Model' is utilized. However, `in this model the most probable outcome of each match is used as a result for further simulation`. During the playoffs model does not take into account a draw as a potential result and instead returns the team with higher odds of winning as one would expect. In order to ensure that the model always returns relevant results, the following tiebreakers were implemented:
     1. If two teams or more in a group collected exactly the same number of points then the model would consider a direct match between each pair of these teams and would compare winning chances to establish which team should be placed higher in the group standings. Due to mathematical transitivity (Team1_win_prob > Team2_win_prob and Team2_win_prob > Team3_win_prob then Team1_win_prob > Team3_win_prob) this approach provides final and unambiguous result. In the future model might be extended to keep track of the most likely goal counts or expected goals for each match and use these metrics to determine the group standings but for now the solution outlined above is in use due to its simplicity, low likelihood of situation where two or more teams have the same number of points (mentioned transitivity and the fact that draws are rarely the most probable outcome of matches), and lastly because it provides good estimate of the standings without the necessity of implementing further tiebreakers. For example, if goal differences were used as a tiebreaker then we might end up in a situation where two or even more teams have exactly the same results which would require implementation of additional solutions (in fact, FIFA prepared a list composed of seven tiebreakers starting from goal differences and finishing with drawing of lots to resolve potential ties!).
     2. In case of a match between two teams in a group stage with no explicit favourite (odds of winning for neither of the teams are higher than odds of winning for their opponent as well as odds of a draw) model will return draw as an outcome.
